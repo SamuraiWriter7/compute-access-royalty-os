@@ -1,0 +1,377 @@
+{
+"$schema": "https://json-schema.org/draft/2020-12/schema",
+"$id": "https://example.org/schemas/contribution-to-access-policy.schema.json",
+"title": "Contribution to Access Policy",
+"description": "A governance policy that defines how contributions are traced, evaluated, and allocated into compute access rights.",
+"type": "object",
+"required": [
+"contribution_to_access_policy"
+],
+"additionalProperties": false,
+"properties": {
+"contribution_to_access_policy": {
+"type": "object",
+"required": [
+"id",
+"version",
+"title",
+"purpose",
+"eligible_contribution_types",
+"evaluation_criteria",
+"allocation_levels",
+"access_right_mapping",
+"expiration_rules",
+"balance_rules",
+"review_requirements",
+"abuse_controls",
+"trace_requirements"
+],
+"additionalProperties": false,
+"properties": {
+"id": {
+"type": "string",
+"description": "Unique identifier for the contribution-to-access policy.",
+"pattern": "^policy:[A-Za-z0-9.*:-]+$"
+},
+"version": {
+"type": "string",
+"description": "Policy version identifier.",
+"pattern": "^v[0-9]+\.[0-9]+(\.[0-9]+)?(-[A-Za-z0-9.*-]+)?$"
+},
+"title": {
+"type": "string",
+"description": "Human-readable policy title."
+},
+"purpose": {
+"type": "string",
+"description": "Purpose of the policy."
+},
+"eligible_contribution_types": {
+"type": "array",
+"description": "Contribution types eligible for compute access allocation.",
+"minItems": 1,
+"items": {
+"type": "string",
+"enum": [
+"code_contribution",
+"documentation_contribution",
+"bug_report",
+"safety_report",
+"benchmark_contribution",
+"dataset_curation",
+"model_evaluation",
+"governance_review",
+"educational_material",
+"community_moderation",
+"origin_knowledge_contribution",
+"other"
+]
+},
+"uniqueItems": true
+},
+"evaluation_criteria": {
+"type": "array",
+"description": "Criteria used to evaluate contribution quality, impact, and eligibility.",
+"minItems": 1,
+"items": {
+"type": "object",
+"required": [
+"name",
+"weight",
+"description"
+],
+"additionalProperties": false,
+"properties": {
+"name": {
+"type": "string",
+"enum": [
+"quality",
+"relevance",
+"originality",
+"difficulty",
+"impact",
+"risk_reduction",
+"reuse_value",
+"verification_status",
+"community_benefit",
+"maintenance_burden",
+"governance_importance"
+]
+},
+"weight": {
+"type": "number",
+"minimum": 0,
+"maximum": 1
+},
+"description": {
+"type": "string"
+}
+}
+}
+},
+"allocation_levels": {
+"type": "array",
+"description": "Defined allocation levels for mapping contribution value to compute access return.",
+"minItems": 1,
+"items": {
+"type": "object",
+"required": [
+"level",
+"name",
+"minimum_score",
+"description"
+],
+"additionalProperties": false,
+"properties": {
+"level": {
+"type": "integer",
+"minimum": 0,
+"maximum": 4
+},
+"name": {
+"type": "string",
+"enum": [
+"none",
+"minor",
+"standard",
+"high_impact",
+"critical"
+]
+},
+"minimum_score": {
+"type": "number",
+"minimum": 0,
+"maximum": 1
+},
+"description": {
+"type": "string"
+},
+"human_review_required": {
+"type": "boolean"
+}
+}
+}
+},
+"access_right_mapping": {
+"type": "array",
+"description": "Mapping from allocation levels to compute access right types.",
+"minItems": 1,
+"items": {
+"type": "object",
+"required": [
+"allocation_level",
+"access_right_type",
+"default_action",
+"max_uses"
+],
+"additionalProperties": false,
+"properties": {
+"allocation_level": {
+"type": "string",
+"enum": [
+"none",
+"minor",
+"standard",
+"high_impact",
+"critical"
+]
+},
+"access_right_type": {
+"type": "string",
+"enum": [
+"none",
+"rate_limit_reset",
+"priority_usage_window",
+"temporary_access_boost",
+"model_access_credit",
+"agent_execution_allowance",
+"contributor_access_grant",
+"community_pool_grant"
+]
+},
+"default_action": {
+"type": "string",
+"enum": [
+"none",
+"reset_rate_limit",
+"activate_priority_window",
+"increase_usage_capacity",
+"grant_model_access",
+"run_agent_task",
+"access_compute_pool",
+"other"
+]
+},
+"max_uses": {
+"type": "integer",
+"minimum": 0
+},
+"default_expiration_days": {
+"type": "integer",
+"minimum": 1
+}
+}
+}
+},
+"expiration_rules": {
+"type": "object",
+"description": "Rules governing expiration of allocated compute access rights.",
+"required": [
+"expiration_required",
+"default_expiration_days",
+"maximum_expiration_days"
+],
+"additionalProperties": false,
+"properties": {
+"expiration_required": {
+"type": "boolean"
+},
+"default_expiration_days": {
+"type": "integer",
+"minimum": 1
+},
+"maximum_expiration_days": {
+"type": "integer",
+"minimum": 1
+}
+}
+},
+"balance_rules": {
+"type": "object",
+"description": "Rules limiting accumulation or hoarding of compute access rights.",
+"required": [
+"maximum_balance",
+"hoarding_prevention_required"
+],
+"additionalProperties": false,
+"properties": {
+"maximum_balance": {
+"type": "integer",
+"minimum": 0
+},
+"hoarding_prevention_required": {
+"type": "boolean"
+},
+"cooldown_days": {
+"type": "integer",
+"minimum": 0
+}
+}
+},
+"review_requirements": {
+"type": "object",
+"description": "Human or governance review requirements for contribution-based access allocation.",
+"required": [
+"human_review_available",
+"human_review_required_for_high_impact",
+"appeal_allowed"
+],
+"additionalProperties": false,
+"properties": {
+"human_review_available": {
+"type": "boolean"
+},
+"human_review_required_for_high_impact": {
+"type": "boolean"
+},
+"human_review_required_for_safety_reports": {
+"type": "boolean"
+},
+"appeal_allowed": {
+"type": "boolean"
+},
+"review_body": {
+"type": "string"
+}
+}
+},
+"abuse_controls": {
+"type": "object",
+"description": "Controls to reduce abuse, access farming, collusion, and speculative misuse.",
+"required": [
+"abuse_check_required",
+"duplicate_detection_required",
+"non_transferable_by_default",
+"cash_value_allowed",
+"resale_allowed"
+],
+"additionalProperties": false,
+"properties": {
+"abuse_check_required": {
+"type": "boolean"
+},
+"duplicate_detection_required": {
+"type": "boolean"
+},
+"collusion_check_required": {
+"type": "boolean"
+},
+"non_transferable_by_default": {
+"type": "boolean"
+},
+"cash_value_allowed": {
+"type": "boolean"
+},
+"resale_allowed": {
+"type": "boolean"
+},
+"revocation_allowed": {
+"type": "boolean"
+}
+}
+},
+"trace_requirements": {
+"type": "object",
+"description": "Required trace fields for contribution-to-access allocation.",
+"required": [
+"origin_trace_required",
+"contribution_reference_required",
+"evidence_required",
+"policy_reference_required",
+"audit_required"
+],
+"additionalProperties": false,
+"properties": {
+"origin_trace_required": {
+"type": "boolean"
+},
+"contribution_reference_required": {
+"type": "boolean"
+},
+"evidence_required": {
+"type": "boolean"
+},
+"policy_reference_required": {
+"type": "boolean"
+},
+"audit_required": {
+"type": "boolean"
+}
+}
+},
+"output": {
+"type": "object",
+"description": "Output expectations for this policy.",
+"required": [
+"creates_compute_access_right"
+],
+"additionalProperties": false,
+"properties": {
+"creates_compute_access_right": {
+"type": "boolean",
+"description": "Whether this policy is intended to create a Compute Access Right record."
+},
+"schema_ref": {
+"type": "string",
+"description": "Reference to the output schema."
+}
+}
+},
+"notes": {
+"type": "string",
+"description": "Optional notes about this policy."
+}
+}
+}
+}
+}
