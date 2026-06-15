@@ -1,131 +1,132 @@
 contribution_to_access_policy:
-id: "policy:contribution-to-access-v0.2"
-version: "v0.2.0-candidate"
-title: "Contribution-to-Access Allocation Policy"
-purpose: "Define how verified contributions are evaluated and converted into governed compute access rights."
+  id: "policy:contribution-to-access-v0.2"
+  version: "v0.2.0-candidate"
+  title: "Contribution-to-Access Allocation Policy"
+  purpose: "Define how verified contributions are evaluated and converted into governed compute access rights."
 
-eligible_contribution_types:
-- "code_contribution"
-- "documentation_contribution"
-- "bug_report"
-- "safety_report"
-- "benchmark_contribution"
-- "dataset_curation"
-- "model_evaluation"
-- "governance_review"
-- "educational_material"
-- "community_moderation"
-- "origin_knowledge_contribution"
+  eligible_contribution_types:
+    - "code_contribution"
+    - "documentation_contribution"
+    - "bug_report"
+    - "safety_report"
+    - "benchmark_contribution"
+    - "dataset_curation"
+    - "model_evaluation"
+    - "governance_review"
+    - "educational_material"
+    - "community_moderation"
+    - "origin_knowledge_contribution"
 
-evaluation_criteria:
-- name: "quality"
-weight: 0.20
-description: "Measures correctness, clarity, and practical usefulness of the contribution."
-- name: "impact"
-weight: 0.20
-description: "Measures how much the contribution improves the AI ecosystem or compute governance layer."
-- name: "verification_status"
-weight: 0.15
-description: "Measures whether the contribution has been reviewed, reproduced, or accepted."
-- name: "reuse_value"
-weight: 0.15
-description: "Measures whether the contribution can be reused across projects, agents, or governance workflows."
-- name: "risk_reduction"
-weight: 0.15
-description: "Measures whether the contribution reduces operational, safety, abuse, or governance risk."
-- name: "community_benefit"
-weight: 0.15
-description: "Measures whether the contribution benefits maintainers, users, reviewers, or the broader community."
+  evaluation_criteria:
+    - name: "quality"
+      weight: 0.20
+      description: "Measures correctness, clarity, and practical usefulness of the contribution."
+    - name: "impact"
+      weight: 0.20
+      description: "Measures how much the contribution improves the AI ecosystem or compute governance layer."
+    - name: "verification_status"
+      weight: 0.15
+      description: "Measures whether the contribution has been reviewed, reproduced, or accepted."
+    - name: "reuse_value"
+      weight: 0.15
+      description: "Measures whether the contribution can be reused across projects, agents, or governance workflows."
+    - name: "risk_reduction"
+      weight: 0.15
+      description: "Measures whether the contribution reduces operational, safety, abuse, or governance risk."
+    - name: "community_benefit"
+      weight: 0.15
+      description: "Measures whether the contribution benefits maintainers, users, reviewers, or the broader community."
 
-allocation_levels:
-- level: 0
-name: "none"
-minimum_score: 0.00
-description: "No access return is granted for invalid, duplicate, unverifiable, or out-of-scope contributions."
-human_review_required: false
-- level: 1
-name: "minor"
-minimum_score: 0.25
-description: "A small temporary access return for minor but useful contributions."
-human_review_required: false
-- level: 2
-name: "standard"
-minimum_score: 0.50
-description: "A standard access return for verified and meaningful contributions."
-human_review_required: false
-- level: 3
-name: "high_impact"
-minimum_score: 0.75
-description: "A stronger access return for high-impact contributions with clear ecosystem value."
-human_review_required: true
-- level: 4
-name: "critical"
-minimum_score: 0.90
-description: "A high-value access return for critical safety, infrastructure, or governance contributions."
-human_review_required: true
+  allocation_levels:
+    - level: 0
+      name: "none"
+      minimum_score: 0.00
+      description: "No access return is granted for invalid, duplicate, unverifiable, or out-of-scope contributions."
+      human_review_required: false
+    - level: 1
+      name: "minor"
+      minimum_score: 0.25
+      description: "A small temporary access return for minor but useful contributions."
+      human_review_required: false
+    - level: 2
+      name: "standard"
+      minimum_score: 0.50
+      description: "A standard access return for verified and meaningful contributions."
+      human_review_required: false
+    - level: 3
+      name: "high_impact"
+      minimum_score: 0.75
+      description: "A stronger access return for high-impact contributions with clear ecosystem value."
+      human_review_required: true
+    - level: 4
+      name: "critical"
+      minimum_score: 0.90
+      description: "A high-value access return for critical safety, infrastructure, or governance contributions."
+      human_review_required: true
 
-access_right_mapping:
-- allocation_level: "none"
-access_right_type: "none"
-default_action: "none"
-max_uses: 0
-default_expiration_days: 1
-- allocation_level: "minor"
-access_right_type: "temporary_access_boost"
-default_action: "increase_usage_capacity"
-max_uses: 1
-default_expiration_days: 14
-- allocation_level: "standard"
-access_right_type: "rate_limit_reset"
-default_action: "reset_rate_limit"
-max_uses: 1
-default_expiration_days: 30
-- allocation_level: "high_impact"
-access_right_type: "priority_usage_window"
-default_action: "activate_priority_window"
-max_uses: 2
-default_expiration_days: 45
-- allocation_level: "critical"
-access_right_type: "model_access_credit"
-default_action: "grant_model_access"
-max_uses: 3
-default_expiration_days: 60
+  access_right_mapping:
+    - allocation_level: "none"
+      access_right_type: "none"
+      default_action: "none"
+      max_uses: 0
+      default_expiration_days: 1
+    - allocation_level: "minor"
+      access_right_type: "temporary_access_boost"
+      default_action: "increase_usage_capacity"
+      max_uses: 1
+      default_expiration_days: 14
+    - allocation_level: "standard"
+      access_right_type: "rate_limit_reset"
+      default_action: "reset_rate_limit"
+      max_uses: 1
+      default_expiration_days: 30
+    - allocation_level: "high_impact"
+      access_right_type: "priority_usage_window"
+      default_action: "activate_priority_window"
+      max_uses: 2
+      default_expiration_days: 45
+    - allocation_level: "critical"
+      access_right_type: "model_access_credit"
+      default_action: "grant_model_access"
+      max_uses: 3
+      default_expiration_days: 60
 
-expiration_rules:
-expiration_required: true
-default_expiration_days: 30
-maximum_expiration_days: 90
+  expiration_rules:
+    expiration_required: true
+    default_expiration_days: 30
+    maximum_expiration_days: 90
 
-balance_rules:
-maximum_balance: 5
-hoarding_prevention_required: true
-cooldown_days: 7
+  balance_rules:
+    maximum_balance: 5
+    hoarding_prevention_required: true
+    cooldown_days: 7
 
-review_requirements:
-human_review_available: true
-human_review_required_for_high_impact: true
-human_review_required_for_safety_reports: true
-appeal_allowed: true
-review_body: "governance:compute-access-review-board"
+  review_requirements:
+    human_review_available: true
+    human_review_required_for_high_impact: true
+    human_review_required_for_safety_reports: true
+    appeal_allowed: true
+    review_body: "governance:compute-access-review-board"
 
-abuse_controls:
-abuse_check_required: true
-duplicate_detection_required: true
-collusion_check_required: true
-non_transferable_by_default: true
-cash_value_allowed: false
-resale_allowed: false
-revocation_allowed: true
+  abuse_controls:
+    abuse_check_required: true
+    duplicate_detection_required: true
+    collusion_check_required: true
+    non_transferable_by_default: true
+    cash_value_allowed: false
+    resale_allowed: false
+    revocation_allowed: true
 
-trace_requirements:
-origin_trace_required: true
-contribution_reference_required: true
-evidence_required: true
-policy_reference_required: true
-audit_required: true
+  trace_requirements:
+    origin_trace_required: true
+    contribution_reference_required: true
+    evidence_required: true
+    policy_reference_required: true
+    audit_required: true
 
-output:
-creates_compute_access_right: true
-schema_ref: "schemas/compute-access-right.schema.json"
+  output:
+    creates_compute_access_right: true
+    schema_ref: "schemas/compute-access-right.schema.json"
 
-notes: "This v0.2 policy converts verified contributions into non-transferable, expiring, auditable compute access rights."
+  notes: "This v0.2 policy converts verified contributions into non-transferable, expiring, auditable compute access rights."
+
