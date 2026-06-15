@@ -1,0 +1,395 @@
+{
+"$schema": "https://json-schema.org/draft/2020-12/schema",
+"$id": "https://example.org/schemas/compute-access-royalty-link.schema.json",
+"title": "Compute Access Royalty Link",
+"description": "A structured link connecting a value origin, trace record, attribution route, allocation decision, return flow, and compute access right.",
+"type": "object",
+"required": [
+"compute_access_royalty_link"
+],
+"additionalProperties": false,
+"properties": {
+"compute_access_royalty_link": {
+"type": "object",
+"required": [
+"id",
+"origin",
+"trace",
+"attribution",
+"allocation",
+"return_flow",
+"compute_access_right",
+"review"
+],
+"additionalProperties": false,
+"properties": {
+"id": {
+"type": "string",
+"description": "Unique identifier for the compute access royalty link.",
+"pattern": "^carl-[A-Za-z0-9._:-]+$"
+},
+"origin": {
+"type": "object",
+"description": "Origin contribution or value source that generated the royalty link.",
+"required": [
+"origin_id",
+"origin_type",
+"contributor",
+"reference"
+],
+"additionalProperties": false,
+"properties": {
+"origin_id": {
+"type": "string",
+"description": "Identifier of the origin contribution."
+},
+"origin_type": {
+"type": "string",
+"enum": [
+"code_contribution",
+"documentation_contribution",
+"bug_report",
+"safety_report",
+"benchmark_contribution",
+"dataset_curation",
+"model_evaluation",
+"governance_review",
+"educational_material",
+"community_moderation",
+"origin_knowledge_contribution",
+"communication_event",
+"trace_verification",
+"architectural_design",
+"other"
+]
+},
+"contributor": {
+"type": "string",
+"description": "Contributor, agent, group, or origin holder."
+},
+"reference": {
+"type": "string",
+"description": "Reference to the source artifact, contribution, document, pull request, trace, or communication event."
+},
+"created_at": {
+"type": "string",
+"format": "date-time"
+}
+}
+},
+"trace": {
+"type": "object",
+"description": "Trace metadata verifying the origin and evidence behind the link.",
+"required": [
+"trace_id",
+"verification_status",
+"evidence"
+],
+"additionalProperties": false,
+"properties": {
+"trace_id": {
+"type": "string",
+"description": "Identifier of the trace record."
+},
+"verification_status": {
+"type": "string",
+"enum": [
+"unverified",
+"pending",
+"verified",
+"rejected",
+"disputed"
+]
+},
+"verifier": {
+"type": "string",
+"description": "Verifier, review body, or system that confirmed the trace."
+},
+"verified_at": {
+"type": "string",
+"format": "date-time"
+},
+"evidence": {
+"type": "array",
+"description": "Evidence references supporting the origin and trace.",
+"minItems": 1,
+"items": {
+"type": "string"
+}
+},
+"policy_ref": {
+"type": "string",
+"description": "Reference to the trace or verification policy."
+}
+}
+},
+"attribution": {
+"type": "object",
+"description": "Attribution route explaining how value is assigned to the origin.",
+"required": [
+"attribution_mode",
+"contribution_weight",
+"attribution_basis"
+],
+"additionalProperties": false,
+"properties": {
+"attribution_mode": {
+"type": "string",
+"enum": [
+"direct",
+"derivative",
+"supporting",
+"review",
+"governance",
+"trace_verification",
+"origin_knowledge",
+"mixed"
+]
+},
+"contribution_weight": {
+"type": "number",
+"minimum": 0,
+"maximum": 1,
+"description": "Relative contribution weight assigned to this origin."
+},
+"attribution_basis": {
+"type": "string",
+"description": "Explanation for the attribution decision."
+},
+"related_origins": {
+"type": "array",
+"description": "Optional related origin references.",
+"items": {
+"type": "string"
+},
+"uniqueItems": true
+},
+"attribution_review_required": {
+"type": "boolean"
+}
+}
+},
+"allocation": {
+"type": "object",
+"description": "Allocation decision connecting the attributed contribution to a compute access return.",
+"required": [
+"policy_id",
+"allocation_level",
+"return_type"
+],
+"additionalProperties": false,
+"properties": {
+"policy_id": {
+"type": "string",
+"description": "Policy used to determine the allocation."
+},
+"allocation_level": {
+"type": "string",
+"enum": [
+"none",
+"minor",
+"standard",
+"high_impact",
+"critical"
+]
+},
+"return_type": {
+"type": "string",
+"enum": [
+"none",
+"compute_access_return",
+"community_pool_access",
+"priority_review_access",
+"agent_execution_allowance",
+"governance_credit",
+"recognition_return",
+"other"
+]
+},
+"allocation_score": {
+"type": "number",
+"minimum": 0,
+"maximum": 1
+},
+"allocation_reason": {
+"type": "string"
+},
+"pool_ref": {
+"type": "string",
+"description": "Optional reference to a Multi-Wing Compute Pool."
+}
+}
+},
+"return_flow": {
+"type": "object",
+"description": "Return-flow configuration for the compute access royalty.",
+"required": [
+"mode",
+"output_access_right",
+"expiration_days"
+],
+"additionalProperties": false,
+"properties": {
+"mode": {
+"type": "string",
+"enum": [
+"none",
+"compute_access_royalty",
+"contribution_return",
+"community_pool_return",
+"safety_reward",
+"governance_reward",
+"manual_return"
+]
+},
+"output_access_right": {
+"type": "string",
+"description": "Identifier or reference of the resulting Compute Access Right."
+},
+"expiration_days": {
+"type": "integer",
+"minimum": 1
+},
+"transferable": {
+"type": "boolean",
+"description": "Whether the returned access right may be transferred."
+},
+"cash_value": {
+"type": "boolean",
+"description": "Whether the returned access right has declared cash value."
+},
+"resale_allowed": {
+"type": "boolean",
+"description": "Whether resale is allowed."
+},
+"revocable": {
+"type": "boolean",
+"description": "Whether the return may be revoked if abused."
+}
+}
+},
+"compute_access_right": {
+"type": "object",
+"description": "Reference to the created or linked Compute Access Right.",
+"required": [
+"right_id",
+"right_type",
+"schema_ref"
+],
+"additionalProperties": false,
+"properties": {
+"right_id": {
+"type": "string",
+"description": "Identifier of the Compute Access Right."
+},
+"right_type": {
+"type": "string",
+"enum": [
+"rate_limit_reset",
+"priority_usage_window",
+"temporary_access_boost",
+"model_access_credit",
+"agent_execution_allowance",
+"contributor_access_grant",
+"community_pool_grant"
+]
+},
+"schema_ref": {
+"type": "string",
+"description": "Reference to the Compute Access Right schema."
+},
+"service": {
+"type": "string",
+"description": "Service or compute environment where the right applies."
+},
+"status": {
+"type": "string",
+"enum": [
+"created",
+"granted",
+"available",
+"activated",
+"consumed",
+"expired",
+"revoked",
+"rejected",
+"under_review"
+]
+}
+}
+},
+"review": {
+"type": "object",
+"description": "Review state for the royalty link.",
+"required": [
+"status",
+"reviewer"
+],
+"additionalProperties": false,
+"properties": {
+"status": {
+"type": "string",
+"enum": [
+"not_required",
+"pending",
+"approved",
+"rejected",
+"revoked",
+"disputed",
+"escalated",
+"needs_more_evidence"
+]
+},
+"reviewer": {
+"type": "string",
+"description": "Reviewer, review board, or governance body."
+},
+"reviewed_at": {
+"type": "string",
+"format": "date-time"
+},
+"human_review_required": {
+"type": "boolean"
+},
+"appeal_allowed": {
+"type": "boolean"
+},
+"notes": {
+"type": "string"
+}
+}
+},
+"audit": {
+"type": "object",
+"description": "Optional audit requirements and state.",
+"required": [
+"audit_required"
+],
+"additionalProperties": false,
+"properties": {
+"audit_required": {
+"type": "boolean"
+},
+"audit_status": {
+"type": "string",
+"enum": [
+"not_required",
+"pending",
+"passed",
+"failed",
+"under_review"
+]
+},
+"audit_ref": {
+"type": "string"
+}
+}
+},
+"notes": {
+"type": "string",
+"description": "Optional notes about this compute access royalty link."
+}
+}
+}
+}
+}
