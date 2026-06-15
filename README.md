@@ -10,7 +10,7 @@ A governance architecture for AI compute access rights, rate-limit resets, contr
 
 As AI systems become more powerful, access to computation is no longer just a technical limit. It becomes a governable resource.
 
-This repository treats AI compute access as a structured, traceable, and reviewable right.
+This repository treats AI compute access as a structured, traceable, reviewable, and return-oriented right.
 
 Examples include:
 
@@ -158,6 +158,49 @@ The Return layer sends value back to contributors.
 
 ---
 
+## Version Structure
+
+### v0.1 — Compute Access Right
+
+v0.1 defines the basic object of governance.
+
+A **Compute Access Right** is a scoped, expiring, traceable, and reviewable right to use AI compute capacity.
+
+```text
+Compute Access Right
+= the governed access object
+```
+
+Implemented files:
+
+* `docs/compute-access-governance.md`
+* `schemas/compute-access-right.schema.json`
+* `examples/compute-access-right.example.yaml`
+
+---
+
+### v0.2 — Contribution-to-Access Allocation
+
+v0.2 defines how useful contributions can be evaluated and converted into compute access rights.
+
+```text
+Contribution
+→ Trace
+→ Evaluation
+→ Allocation
+→ Compute Access Return
+```
+
+Implemented files:
+
+* `docs/contribution-to-access-allocation.md`
+* `schemas/contribution-to-access-policy.schema.json`
+* `examples/contribution-to-access-policy.example.yaml`
+
+This adds the policy layer for contribution-based compute access return.
+
+---
+
 ## Repository Structure
 
 ```text
@@ -166,13 +209,17 @@ compute-access-royalty-os/
 │   └── workflows/
 │       └── validate-examples.yml
 ├── docs/
-│   └── compute-access-governance.md
+│   ├── compute-access-governance.md
+│   └── contribution-to-access-allocation.md
 ├── examples/
-│   └── compute-access-right.example.yaml
+│   ├── compute-access-right.example.yaml
+│   └── contribution-to-access-policy.example.yaml
 ├── schemas/
-│   └── compute-access-right.schema.json
+│   ├── compute-access-right.schema.json
+│   └── contribution-to-access-policy.schema.json
 ├── scripts/
 │   └── validate_examples.py
+├── CHANGELOG.md
 └── README.md
 ```
 
@@ -185,6 +232,12 @@ compute-access-royalty-os/
 `docs/compute-access-governance.md`
 
 Defines the conceptual model for governing AI compute access rights, including permission, trace, allocation, lifecycle, review, and return flow.
+
+### Contribution-to-Access Allocation
+
+`docs/contribution-to-access-allocation.md`
+
+Defines how useful contributions can be traced, evaluated, and converted into governed compute access rights.
 
 ---
 
@@ -209,6 +262,25 @@ The schema covers:
 * review state
 * return flow metadata
 
+### Contribution-to-Access Policy
+
+`schemas/contribution-to-access-policy.schema.json`
+
+Defines how contribution types, evaluation criteria, allocation levels, review requirements, abuse controls, and trace requirements are mapped into compute access returns.
+
+The schema covers:
+
+* eligible contribution types
+* evaluation criteria
+* allocation levels
+* access right mapping
+* expiration rules
+* balance rules
+* review requirements
+* abuse controls
+* trace requirements
+* output expectations
+
 ---
 
 ## Examples
@@ -230,6 +302,22 @@ Verified contribution
 → contribution return flow
 ```
 
+### Contribution-to-Access Policy Example
+
+`examples/contribution-to-access-policy.example.yaml`
+
+Provides a valid example policy for converting verified contributions into governed compute access rights.
+
+Example concept:
+
+```text
+Contribution type
+→ evaluation criteria
+→ allocation level
+→ access right mapping
+→ review / abuse / trace requirements
+```
+
 ---
 
 ## Validation
@@ -249,6 +337,10 @@ python scripts/validate_examples.py
   schema : schemas/compute-access-right.schema.json
   example: examples/compute-access-right.example.yaml
 [ok] Compute Access Right example is valid
+[validate] Contribution to Access Policy
+  schema : schemas/contribution-to-access-policy.schema.json
+  example: examples/contribution-to-access-policy.example.yaml
+[ok] Contribution to Access Policy example is valid
 ```
 
 ### GitHub Actions
@@ -260,32 +352,6 @@ The workflow runs automatically on:
 * push to `main`
 * pull request
 * manual workflow dispatch
-
----
-
-## v0.1 Scope
-
-The v0.1 scope includes:
-
-* compute access rights
-* rate-limit resets
-* permission boundaries
-* lifecycle states
-* trace requirements
-* review metadata
-* non-transferability principles
-* contribution-based return flow
-
-The v0.1 scope does not include:
-
-* financial tokenization
-* transferable markets
-* resale mechanisms
-* speculative assets
-* automated royalty payment rails
-* cross-platform exchange protocols
-
-This repository intentionally begins with non-transferable, scoped, expiring access rights.
 
 ---
 
@@ -409,11 +475,30 @@ expires_in: 30 days
 
 ---
 
+## Current Status
+
+This repository currently defines the v0.2 foundation of Compute Access Royalty OS.
+
+Implemented:
+
+* governance document
+* contribution allocation document
+* JSON Schemas
+* YAML examples
+* validation script
+* GitHub Actions workflow
+
+Validation status:
+
+```text
+passing
+```
+
+---
+
 ## Roadmap
 
 ### v0.1 — Compute Access Right
-
-Defines the first schema, example, governance document, and validation workflow.
 
 Status:
 
@@ -421,25 +506,19 @@ Status:
 validated
 ```
 
+Defines the first schema, example, governance document, and validation workflow for compute access rights.
+
 ---
 
 ### v0.2 — Contribution-to-Access Allocation
 
-Planned direction:
-
-* contribution scoring
-* access allocation policies
-* verified contribution records
-* governance review boundaries
-* return-flow evaluation
-
-Potential files:
+Status:
 
 ```text
-docs/contribution-to-access-allocation.md
-schemas/contribution-to-access-policy.schema.json
-examples/contribution-to-access-policy.example.yaml
+validated
 ```
+
+Defines contribution evaluation and policy-based allocation into compute access rights.
 
 ---
 
@@ -448,10 +527,10 @@ examples/contribution-to-access-policy.example.yaml
 Planned direction:
 
 * shared compute pools
+* multi-wing access governance
 * community allocation
-* multi-agent access governance
-* cross-wing compute coordination
-* abuse-resistant commons design
+* cross-agent compute coordination
+* abuse-resistant compute commons
 
 Potential files:
 
@@ -463,22 +542,22 @@ examples/multi-wing-compute-pool.example.yaml
 
 ---
 
-## Current Status
+### v0.4 — Royalty OS Integration
 
-This repository currently defines the v0.1 foundation of Compute Access Royalty OS.
+Planned direction:
 
-Implemented:
+* integration with Royalty OS
+* contribution trace linkage
+* origin attribution
+* allocation interoperability
+* return-flow bridge design
 
-* governance document
-* JSON Schema
-* YAML example
-* validation script
-* GitHub Actions workflow
-
-Validation status:
+Potential files:
 
 ```text
-passing
+docs/royalty-os-integration.md
+schemas/compute-access-royalty-link.schema.json
+examples/compute-access-royalty-link.example.yaml
 ```
 
 ---
@@ -508,3 +587,4 @@ Recommended:
 ```text
 MIT License
 ```
+
