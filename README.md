@@ -1,6 +1,6 @@
 # Compute Access Royalty OS
 
-A governance architecture for AI compute access rights, rate-limit resets, contribution-based allocation, and return flow in agentic AI ecosystems.
+A governance architecture for AI compute access rights, rate-limit resets, contribution-based allocation, shared compute commons, and return flow in agentic AI ecosystems.
 
 ---
 
@@ -21,6 +21,7 @@ Examples include:
 * agent execution allowances
 * contributor access grants
 * community compute pool access
+* multi-wing shared compute pools
 
 The goal is not to create a currency.
 
@@ -50,6 +51,18 @@ Contribution / permission / allocation event
 → reviewable trace
 ```
 
+With v0.3, this expands into shared compute commons.
+
+```text
+Shared Compute Pool
+→ Wing Contribution
+→ Governance Policy
+→ Allocation Decision
+→ Compute Access Right
+→ Usage Trace
+→ Review / Adjustment
+```
+
 In this model, access to AI compute can become:
 
 * permission-aware
@@ -59,6 +72,7 @@ In this model, access to AI compute can become:
 * abuse-resistant
 * traceable
 * reviewable
+* commons-aware
 * return-oriented
 
 ---
@@ -81,8 +95,9 @@ If access can be allocated through transparent governance rules, it becomes poss
 * governance reviews
 * educational materials
 * community validation
+* multi-wing ecosystem work
 
-This creates a path from simple rate limits toward contribution-based return flow.
+This creates a path from simple rate limits toward contribution-based and commons-based return flow.
 
 ```text
 Contribution
@@ -90,6 +105,16 @@ Contribution
 → Evaluation
 → Allocation
 → Compute Access Return
+```
+
+At the commons level:
+
+```text
+Wing Contribution
+→ Pool Governance
+→ Shared Allocation
+→ Usage Trace
+→ Commons Review
 ```
 
 ---
@@ -108,6 +133,7 @@ Instead of returning only money, a system may return:
 * agent execution capacity
 * contribution-linked access grants
 * community pool access
+* shared compute commons allocation
 
 This creates a broader concept:
 
@@ -117,6 +143,9 @@ Contribution Royalty
 
 Compute Access Royalty
 = AI capability returned to contributors
+
+Compute Commons
+= shared capability governed across multiple wings
 ```
 
 In short:
@@ -126,6 +155,7 @@ Useful contribution
 → verified trace
 → access right
 → governed return
+→ commons balance
 ```
 
 ---
@@ -146,6 +176,9 @@ origin event, contribution source, policy reference, review record
 
 Return Layer
 compute access returned to useful contributors
+
+Commons Layer
+shared compute pools governed across multiple wings
 ```
 
 The Fire layer provides capability.
@@ -155,6 +188,8 @@ The Wind layer regulates access.
 The Trace layer preserves accountability.
 
 The Return layer sends value back to contributors.
+
+The Commons layer prevents shared compute capacity from being captured by a single wing.
 
 ---
 
@@ -201,6 +236,30 @@ This adds the policy layer for contribution-based compute access return.
 
 ---
 
+### v0.3 — Multi-Wing Compute Commons
+
+v0.3 defines how multiple wings can share, govern, allocate, and review pooled AI compute access.
+
+```text
+Shared Compute Pool
+→ Wing Contribution
+→ Governance Policy
+→ Allocation Decision
+→ Compute Access Right
+→ Usage Trace
+→ Commons Review
+```
+
+Implemented files:
+
+* `docs/multi-wing-compute-commons.md`
+* `schemas/multi-wing-compute-pool.schema.json`
+* `examples/multi-wing-compute-pool.example.yaml`
+
+This adds the commons layer for shared compute governance across multiple ecosystem wings.
+
+---
+
 ## Repository Structure
 
 ```text
@@ -210,13 +269,16 @@ compute-access-royalty-os/
 │       └── validate-examples.yml
 ├── docs/
 │   ├── compute-access-governance.md
-│   └── contribution-to-access-allocation.md
+│   ├── contribution-to-access-allocation.md
+│   └── multi-wing-compute-commons.md
 ├── examples/
 │   ├── compute-access-right.example.yaml
-│   └── contribution-to-access-policy.example.yaml
+│   ├── contribution-to-access-policy.example.yaml
+│   └── multi-wing-compute-pool.example.yaml
 ├── schemas/
 │   ├── compute-access-right.schema.json
-│   └── contribution-to-access-policy.schema.json
+│   ├── contribution-to-access-policy.schema.json
+│   └── multi-wing-compute-pool.schema.json
 ├── scripts/
 │   └── validate_examples.py
 ├── CHANGELOG.md
@@ -238,6 +300,12 @@ Defines the conceptual model for governing AI compute access rights, including p
 `docs/contribution-to-access-allocation.md`
 
 Defines how useful contributions can be traced, evaluated, and converted into governed compute access rights.
+
+### Multi-Wing Compute Commons
+
+`docs/multi-wing-compute-commons.md`
+
+Defines how shared compute pools can be governed across multiple wings, communities, agents, contributors, and review bodies.
 
 ---
 
@@ -281,6 +349,26 @@ The schema covers:
 * trace requirements
 * output expectations
 
+### Multi-Wing Compute Pool
+
+`schemas/multi-wing-compute-pool.schema.json`
+
+Defines a governed shared compute pool for allocating AI compute access rights across multiple wings.
+
+The schema covers:
+
+* pool identity
+* steward
+* pool type
+* capacity
+* eligible wings
+* allocation policy
+* usage rules
+* trace requirements
+* abuse controls
+* review configuration
+* output expectations
+
 ---
 
 ## Examples
@@ -318,6 +406,23 @@ Contribution type
 → review / abuse / trace requirements
 ```
 
+### Multi-Wing Compute Pool Example
+
+`examples/multi-wing-compute-pool.example.yaml`
+
+Provides a valid example of a shared compute pool governed across multiple wings.
+
+Example concept:
+
+```text
+Shared compute pool
+→ eligible wings
+→ allocation policy
+→ usage rules
+→ trace requirements
+→ commons review
+```
+
 ---
 
 ## Validation
@@ -341,6 +446,10 @@ python scripts/validate_examples.py
   schema : schemas/contribution-to-access-policy.schema.json
   example: examples/contribution-to-access-policy.example.yaml
 [ok] Contribution to Access Policy example is valid
+[validate] Multi-Wing Compute Pool
+  schema : schemas/multi-wing-compute-pool.schema.json
+  example: examples/multi-wing-compute-pool.example.yaml
+[ok] Multi-Wing Compute Pool example is valid
 ```
 
 ### GitHub Actions
@@ -415,6 +524,14 @@ A governed access system should allow controlled flexibility.
 
 ---
 
+### 8. Commons Must Rebalance
+
+A shared compute commons should not be captured by one wing.
+
+It should support review, transparency, rebalancing, and abuse prevention.
+
+---
+
 ## Example Use Cases
 
 ### Referral-Based Reset
@@ -475,14 +592,30 @@ expires_in: 30 days
 
 ---
 
+### Multi-Wing Compute Pool
+
+A shared compute pool allocates access across Code, Safety, Trace, Education, Governance, and Community Wings.
+
+```text
+pool: open_source_contributor_pool
+allocation_mode: hybrid
+wing_quota_enabled: true
+contribution_based: true
+usage_trace_required: true
+rebalance_allowed: true
+```
+
+---
+
 ## Current Status
 
-This repository currently defines the v0.2 foundation of Compute Access Royalty OS.
+This repository currently defines the v0.3 foundation of Compute Access Royalty OS.
 
 Implemented:
 
-* governance document
+* compute access governance document
 * contribution allocation document
+* multi-wing compute commons document
 * JSON Schemas
 * YAML examples
 * validation script
@@ -524,21 +657,13 @@ Defines contribution evaluation and policy-based allocation into compute access 
 
 ### v0.3 — Multi-Wing Compute Commons
 
-Planned direction:
-
-* shared compute pools
-* multi-wing access governance
-* community allocation
-* cross-agent compute coordination
-* abuse-resistant compute commons
-
-Potential files:
+Status:
 
 ```text
-docs/multi-wing-compute-commons.md
-schemas/multi-wing-compute-pool.schema.json
-examples/multi-wing-compute-pool.example.yaml
+validated
 ```
+
+Defines shared compute pools, multi-wing governance, allocation rules, abuse controls, and commons review.
 
 ---
 
@@ -562,18 +687,42 @@ examples/compute-access-royalty-link.example.yaml
 
 ---
 
+### v0.5 — Sovereign / Space Compute Access Protocol
+
+Planned direction:
+
+* sovereign compute governance
+* space or off-grid compute infrastructure
+* jurisdictional stewardship
+* AI compute access rights across infrastructure domains
+* human review and commons protection
+
+Potential files:
+
+```text
+docs/sovereign-compute-access-protocol.md
+schemas/sovereign-compute-access.schema.json
+examples/sovereign-compute-access.example.yaml
+```
+
+---
+
 ## Philosophy
 
 AI compute should not only be consumed.
 
-It should be governed, traced, and returned.
+It should be governed, traced, returned, and shared.
 
-Compute Access Royalty OS is a first step toward an AI ecosystem where useful contributions can generate access to more intelligence.
+Compute Access Royalty OS is a first step toward an AI ecosystem where useful contributions can generate access to more intelligence, and where shared compute resources can circulate across multiple wings without becoming extractive or speculative.
 
 ```text
 Contribution should not disappear into the system.
 
 It should return as capability.
+
+Capability should not be captured by one wing.
+
+It should circulate through a governed commons.
 ```
 
 ---
@@ -587,4 +736,3 @@ Recommended:
 ```text
 MIT License
 ```
-
