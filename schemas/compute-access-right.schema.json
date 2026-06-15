@@ -1,0 +1,341 @@
+{
+"$schema": "https://json-schema.org/draft/2020-12/schema",
+"$id": "https://example.org/schemas/compute-access-right.schema.json",
+"title": "Compute Access Right",
+"description": "A governed, scoped, traceable, and reviewable right to use AI compute capacity, such as rate-limit resets, priority usage windows, temporary access boosts, or contribution-based compute access returns.",
+"type": "object",
+"required": [
+"compute_access_right"
+],
+"additionalProperties": false,
+"properties": {
+"compute_access_right": {
+"type": "object",
+"required": [
+"id",
+"type",
+"granted_to",
+"granted_by",
+"trigger",
+"scope",
+"lifecycle",
+"policy",
+"trace"
+],
+"additionalProperties": false,
+"properties": {
+"id": {
+"type": "string",
+"description": "Unique identifier for the compute access right.",
+"pattern": "^car-[A-Za-z0-9._:-]+$"
+},
+"type": {
+"type": "string",
+"description": "Type of compute access right.",
+"enum": [
+"rate_limit_reset",
+"priority_usage_window",
+"temporary_access_boost",
+"model_access_credit",
+"agent_execution_allowance",
+"contributor_access_grant",
+"community_pool_grant"
+]
+},
+"granted_to": {
+"type": "string",
+"description": "Recipient of the compute access right."
+},
+"granted_by": {
+"type": "string",
+"description": "System, organization, governance body, or agent that granted the right."
+},
+"trigger": {
+"type": "object",
+"description": "Event or condition that caused the access right to be granted.",
+"required": [
+"kind",
+"reference"
+],
+"additionalProperties": false,
+"properties": {
+"kind": {
+"type": "string",
+"enum": [
+"referral",
+"subscription_grant",
+"manual_grant",
+"verified_contribution",
+"safety_report",
+"documentation",
+"benchmark_submission",
+"governance_review",
+"community_reward",
+"system_compensation",
+"other"
+]
+},
+"reference": {
+"type": "string",
+"description": "Reference to the origin event, contribution, policy decision, or external record."
+},
+"description": {
+"type": "string",
+"description": "Human-readable explanation of the trigger."
+}
+}
+},
+"scope": {
+"type": "object",
+"description": "Defines where and how the compute access right may be used.",
+"required": [
+"service",
+"action",
+"transferable",
+"cash_value",
+"resale_allowed"
+],
+"additionalProperties": false,
+"properties": {
+"service": {
+"type": "string",
+"description": "AI service, agent, model platform, or compute pool where this right applies."
+},
+"plan": {
+"type": "string",
+"description": "Optional plan or eligibility tier."
+},
+"model_tier": {
+"type": "string",
+"description": "Optional model tier or capability class."
+},
+"action": {
+"type": "string",
+"enum": [
+"reset_rate_limit",
+"activate_priority_window",
+"increase_usage_capacity",
+"grant_model_access",
+"run_agent_task",
+"access_compute_pool",
+"other"
+]
+},
+"max_uses": {
+"type": "integer",
+"minimum": 1,
+"description": "Maximum number of times this access right may be used."
+},
+"transferable": {
+"type": "boolean",
+"description": "Whether the right may be transferred to another user."
+},
+"cash_value": {
+"type": "boolean",
+"description": "Whether the right has declared cash value."
+},
+"resale_allowed": {
+"type": "boolean",
+"description": "Whether resale or secondary-market exchange is allowed."
+},
+"geographic_scope": {
+"type": "string",
+"description": "Optional geographic or jurisdictional scope."
+}
+}
+},
+"lifecycle": {
+"type": "object",
+"description": "Lifecycle state and validity period of the compute access right.",
+"required": [
+"status",
+"granted_at",
+"expires_at"
+],
+"additionalProperties": false,
+"properties": {
+"status": {
+"type": "string",
+"enum": [
+"created",
+"granted",
+"available",
+"activated",
+"consumed",
+"expired",
+"revoked",
+"rejected",
+"under_review"
+]
+},
+"granted_at": {
+"type": "string",
+"format": "date-time"
+},
+"activated_at": {
+"type": "string",
+"format": "date-time"
+},
+"consumed_at": {
+"type": "string",
+"format": "date-time"
+},
+"expires_at": {
+"type": "string",
+"format": "date-time",
+"description": "Expiration time. v0.1 requires expiration to prevent hoarding."
+},
+"revoked_at": {
+"type": "string",
+"format": "date-time"
+},
+"revocation_reason": {
+"type": "string"
+}
+}
+},
+"policy": {
+"type": "object",
+"description": "Policy controls for use, approval, revocation, and audit.",
+"required": [
+"policy_id",
+"approval_required",
+"revocable",
+"audit_required"
+],
+"additionalProperties": false,
+"properties": {
+"policy_id": {
+"type": "string"
+},
+"approval_required": {
+"type": "boolean"
+},
+"revocable": {
+"type": "boolean"
+},
+"audit_required": {
+"type": "boolean"
+},
+"abuse_check_required": {
+"type": "boolean"
+},
+"human_review_required": {
+"type": "boolean"
+},
+"maximum_balance": {
+"type": "integer",
+"minimum": 0,
+"description": "Maximum number of similar rights that may be held by the recipient."
+}
+}
+},
+"trace": {
+"type": "object",
+"description": "Trace record explaining why the access right exists and how it should be audited.",
+"required": [
+"origin_event",
+"created_by",
+"created_at"
+],
+"additionalProperties": false,
+"properties": {
+"origin_event": {
+"type": "string",
+"description": "Origin event that generated this compute access right."
+},
+"contribution_ref": {
+"type": "string",
+"description": "Optional reference to a contribution, review, safety report, code patch, or documentation record."
+},
+"policy_ref": {
+"type": "string",
+"description": "Optional reference to the governing policy."
+},
+"created_by": {
+"type": "string"
+},
+"created_at": {
+"type": "string",
+"format": "date-time"
+},
+"evidence": {
+"type": "array",
+"items": {
+"type": "string"
+},
+"description": "Evidence references supporting the grant."
+}
+}
+},
+"review": {
+"type": "object",
+"description": "Optional review state for high-impact, disputed, or contribution-based grants.",
+"required": [
+"status"
+],
+"additionalProperties": false,
+"properties": {
+"status": {
+"type": "string",
+"enum": [
+"not_required",
+"pending",
+"approved",
+"rejected",
+"revoked",
+"reduced",
+"extended",
+"escalated",
+"needs_more_evidence"
+]
+},
+"reviewer": {
+"type": "string"
+},
+"reviewed_at": {
+"type": "string",
+"format": "date-time"
+},
+"notes": {
+"type": "string"
+}
+}
+},
+"return_flow": {
+"type": "object",
+"description": "Optional return-flow metadata when the compute access right is granted as a royalty-style return for contribution.",
+"required": [
+"mode"
+],
+"additionalProperties": false,
+"properties": {
+"mode": {
+"type": "string",
+"enum": [
+"none",
+"contribution_return",
+"community_pool_return",
+"safety_reward",
+"governance_reward",
+"manual_return"
+]
+},
+"source_contribution": {
+"type": "string",
+"description": "Contribution or origin source that generated the return."
+},
+"allocation_basis": {
+"type": "string",
+"description": "Basis for deciding the access return."
+},
+"allocation_score": {
+"type": "number",
+"minimum": 0
+}
+}
+}
+}
+}
+}
+}
