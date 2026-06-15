@@ -36,7 +36,7 @@
 "version": {
 "type": "string",
 "description": "Policy version identifier.",
-"pattern": "^v[0-9]+\.[0-9]+(\.[0-9]+)?(-[A-Za-z0-9.*-]+)?$"
+"pattern": "^v[0-9]+\\.[0-9]+(\\.[0-9]+)?(-[A-Za-z0-9.*-]+)?$"
 },
 "title": {
 "type": "string",
