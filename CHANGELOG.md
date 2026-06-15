@@ -6,6 +6,122 @@ This repository follows a candidate-based release flow for early specification d
 
 ---
 
+## [v0.3.0-candidate] - 2026-06-15
+
+### Added
+
+* Added `docs/multi-wing-compute-commons.md`.
+
+  * Defines the v0.3 commons model for shared AI compute access governance.
+  * Introduces the flow:
+
+    * Shared Compute Pool
+    * Wing Contribution
+    * Governance Policy
+    * Allocation Decision
+    * Compute Access Right
+    * Usage Trace
+    * Review / Adjustment
+  * Defines wings, shared compute pools, commons governance layers, allocation modes, anti-abuse design, and review principles.
+* Added `schemas/multi-wing-compute-pool.schema.json`.
+
+  * Defines the first JSON Schema for a governed shared compute pool.
+  * Supports pool identity, steward, pool type, capacity, eligible wings, allocation policy, usage rules, trace requirements, abuse controls, review configuration, and output expectations.
+* Added `examples/multi-wing-compute-pool.example.yaml`.
+
+  * Provides a valid example of an open-source contributor compute pool.
+  * Demonstrates multi-wing allocation across Code, Safety, Trace, Education, Governance, and Community Wings.
+  * Includes capacity, wing weights, allocation policy, usage rules, trace requirements, abuse controls, and review configuration.
+* Updated `scripts/validate_examples.py`.
+
+  * Added validation target for `Multi-Wing Compute Pool`.
+  * Now validates:
+
+    * `Compute Access Right`
+    * `Contribution to Access Policy`
+    * `Multi-Wing Compute Pool`
+* Updated `README.md`.
+
+  * Added v0.3 overview.
+  * Added Multi-Wing Compute Commons section.
+  * Updated repository structure.
+  * Updated schemas, examples, validation output, current status, roadmap, and philosophy.
+
+### Validated
+
+* Confirmed that `examples/compute-access-right.example.yaml` validates successfully against `schemas/compute-access-right.schema.json`.
+* Confirmed that `examples/contribution-to-access-policy.example.yaml` validates successfully against `schemas/contribution-to-access-policy.schema.json`.
+* Confirmed that `examples/multi-wing-compute-pool.example.yaml` validates successfully against `schemas/multi-wing-compute-pool.schema.json`.
+* Confirmed that GitHub Actions validation passes with all three schema/example pairs.
+* Confirmed that v0.3 is connected to the repository validation loop.
+
+### Design Notes
+
+v0.3 extends the system from individual access rights and contribution-based allocation into shared compute commons.
+
+```text
+v0.1
+Compute Access Right
+= the governed access object
+
+v0.2
+Contribution-to-Access Allocation
+= the policy layer that converts contribution into access return
+
+v0.3
+Multi-Wing Compute Commons
+= the shared resource layer for governing pooled compute access across multiple wings
+```
+
+The v0.3 model intentionally keeps shared compute access:
+
+* pool-based
+* wing-aware
+* policy-governed
+* contribution-aware
+* traceable
+* non-transferable by default
+* non-cash by default
+* expiring
+* abuse-checked
+* reviewable
+* auditable
+* rebalancing-aware
+
+### Release Readiness
+
+`v0.3.0-candidate` is ready to tag once the following files are committed:
+
+```text
+README.md
+CHANGELOG.md
+docs/compute-access-governance.md
+docs/contribution-to-access-allocation.md
+docs/multi-wing-compute-commons.md
+schemas/compute-access-right.schema.json
+schemas/contribution-to-access-policy.schema.json
+schemas/multi-wing-compute-pool.schema.json
+examples/compute-access-right.example.yaml
+examples/contribution-to-access-policy.example.yaml
+examples/multi-wing-compute-pool.example.yaml
+scripts/validate_examples.py
+.github/workflows/validate-examples.yml
+```
+
+Recommended tag:
+
+```text
+v0.3.0-candidate
+```
+
+Recommended release title:
+
+```text
+v0.3.0-candidate — Multi-Wing Compute Commons
+```
+
+---
+
 ## [v0.2.0-candidate] - 2026-06-15
 
 ### Added
@@ -75,22 +191,7 @@ The v0.2 model intentionally keeps compute access returns:
 * reviewable
 * auditable
 
-### Release Readiness
-
-`v0.2.0-candidate` is ready to tag once the following files are committed:
-
-```text
-README.md
-CHANGELOG.md
-docs/compute-access-governance.md
-docs/contribution-to-access-allocation.md
-schemas/compute-access-right.schema.json
-schemas/contribution-to-access-policy.schema.json
-examples/compute-access-right.example.yaml
-examples/contribution-to-access-policy.example.yaml
-scripts/validate_examples.py
-.github/workflows/validate-examples.yml
-```
+### Release
 
 Recommended tag:
 
@@ -194,24 +295,6 @@ v0.1.0-candidate — Compute Access Right Governance Foundation
 
 ## Planned
 
-### v0.3 — Multi-Wing Compute Commons
-
-Planned direction:
-
-* shared compute pools
-* multi-wing access governance
-* community allocation
-* cross-agent compute coordination
-* abuse-resistant compute commons
-
-Potential files:
-
-```text
-docs/multi-wing-compute-commons.md
-schemas/multi-wing-compute-pool.schema.json
-examples/multi-wing-compute-pool.example.yaml
-```
-
 ### v0.4 — Royalty OS Integration
 
 Planned direction:
@@ -228,5 +311,23 @@ Potential files:
 docs/royalty-os-integration.md
 schemas/compute-access-royalty-link.schema.json
 examples/compute-access-royalty-link.example.yaml
+```
+
+### v0.5 — Sovereign / Space Compute Access Protocol
+
+Planned direction:
+
+* sovereign compute governance
+* space or off-grid compute infrastructure
+* jurisdictional stewardship
+* AI compute access rights across infrastructure domains
+* human review and commons protection
+
+Potential files:
+
+```text
+docs/sovereign-compute-access-protocol.md
+schemas/sovereign-compute-access.schema.json
+examples/sovereign-compute-access.example.yaml
 ```
 
