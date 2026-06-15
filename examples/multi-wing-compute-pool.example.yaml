@@ -1,0 +1,129 @@
+multi_wing_compute_pool:
+id: "mwcp-2026-001"
+name: "Open Source Contributor Compute Pool"
+steward: "governance:compute-access-review-board"
+pool_type: "open_source_contributor_pool"
+description: "A shared compute pool for rewarding verified contributions across multiple AI ecosystem wings."
+
+capacity:
+unit: "access_right"
+total_available: 100
+reserved_capacity: 15
+refresh_interval: "monthly"
+rollover_allowed: false
+maximum_rollover: 0
+
+eligible_wings:
+- wing_id: "wing:code"
+name: "Code Wing"
+role: "software_contribution"
+allocation_weight: 0.30
+priority: "high"
+eligible_contribution_types:
+- "code_contribution"
+- "bug_report"
+- "infrastructure_contribution"
+
+```
+- wing_id: "wing:safety"
+  name: "Safety Wing"
+  role: "risk_discovery"
+  allocation_weight: 0.25
+  priority: "critical"
+  eligible_contribution_types:
+    - "safety_report"
+    - "model_evaluation"
+    - "benchmark_contribution"
+
+- wing_id: "wing:trace"
+  name: "Trace Wing"
+  role: "audit_and_provenance"
+  allocation_weight: 0.15
+  priority: "normal"
+  eligible_contribution_types:
+    - "origin_knowledge_contribution"
+    - "governance_review"
+    - "dataset_curation"
+
+- wing_id: "wing:education"
+  name: "Education Wing"
+  role: "documentation_and_learning"
+  allocation_weight: 0.10
+  priority: "normal"
+  eligible_contribution_types:
+    - "documentation_contribution"
+    - "educational_material"
+
+- wing_id: "wing:governance"
+  name: "Governance Wing"
+  role: "review_and_policy"
+  allocation_weight: 0.10
+  priority: "high"
+  eligible_contribution_types:
+    - "governance_review"
+    - "community_moderation"
+
+- wing_id: "wing:community"
+  name: "Community Wing"
+  role: "moderation_and_support"
+  allocation_weight: 0.10
+  priority: "normal"
+  eligible_contribution_types:
+    - "community_moderation"
+    - "documentation_contribution"
+```
+
+allocation_policy:
+mode: "hybrid"
+policy_ref: "policy:contribution-to-access-v0.2"
+contribution_based: true
+need_based: true
+wing_quota_enabled: true
+review_gated: true
+emergency_allocation_allowed: true
+human_review_required_for_high_impact: true
+minimum_score_for_allocation: 0.50
+
+usage_rules:
+transferable: false
+cash_value: false
+resale_allowed: false
+expiration_required: true
+default_expiration_days: 30
+maximum_balance_per_recipient: 5
+activation_required: true
+revocation_allowed: true
+
+trace_requirements:
+contribution_trace_required: true
+allocation_trace_required: true
+usage_trace_required: true
+policy_reference_required: true
+pool_source_required: true
+audit_required: true
+transparency_report_required: true
+
+abuse_controls:
+access_farming_check_required: true
+pool_capture_check_required: true
+collusion_check_required: true
+hoarding_prevention_required: true
+speculation_prevention_required: true
+duplicate_contribution_detection_required: true
+cooldown_days: 7
+conflict_of_interest_check_required: true
+
+review:
+review_body: "governance:compute-access-review-board"
+appeal_allowed: true
+rebalance_allowed: true
+review_interval: "monthly"
+allocation_review_required: true
+abuse_review_required: true
+transparency_report_interval: "quarterly"
+
+output:
+creates_compute_access_right: true
+schema_ref: "schemas/compute-access-right.schema.json"
+
+notes: "This v0.3 example defines a shared compute commons for allocating governed AI compute access rights across multiple ecosystem wings."
