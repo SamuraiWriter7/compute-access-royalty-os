@@ -1,51 +1,49 @@
 compute_access_right:
-id: "car-2026-001"
-type: "rate_limit_reset"
-granted_to: "user:developer-alpha"
-granted_by: "system:compute-access-royalty-os"
-trigger:
-kind: "verified_contribution"
-reference: "contribution:open-source-patch-001"
-description: "Granted after a verified open-source contribution improved an AI coding workflow."
-scope:
-service: "example-ai-coding-agent"
-plan: "developer"
-model_tier: "high-capability-coding"
-action: "reset_rate_limit"
-max_uses: 1
-transferable: false
-cash_value: false
-resale_allowed: false
-geographic_scope: "global"
-lifecycle:
-status: "available"
-granted_at: "2026-06-12T00:00:00Z"
-expires_at: "2026-07-12T00:00:00Z"
-policy:
-policy_id: "policy:compute-access-v0.1"
-approval_required: false
-revocable: true
-audit_required: true
-abuse_check_required: true
-human_review_required: false
-maximum_balance: 5
-trace:
-origin_event: "verified_contribution"
-contribution_ref: "contribution:open-source-patch-001"
-policy_ref: "policy:compute-access-v0.1"
-created_by: "governance:allocation-engine"
-created_at: "2026-06-12T00:00:00Z"
-evidence:
-- "pull-request:ai-coding-workflow-fix-001"
-- "review:maintainer-approved-001"
-- "test-result:validation-passed-001"
-review:
-status: "not_required"
-notes: "Low-risk non-transferable access right with expiration and audit trace."
-return_flow:
-mode: "contribution_return"
-source_contribution: "contribution:open-source-patch-001"
-allocation_basis: "Verified contribution improved reliability of an AI coding workflow."
-allocation_score: 0.82
-
-
+  id: "car-2026-001"
+  type: "rate_limit_reset"
+  granted_to: "user:developer-alpha"
+  granted_by: "system:compute-access-royalty-os"
+  trigger:
+    kind: "verified_contribution"
+    reference: "contribution:open-source-patch-001"
+    description: "Granted after a verified open-source contribution improved an AI coding workflow."
+  scope:
+    service: "example-ai-coding-agent"
+    plan: "developer"
+    model_tier: "high-capability-coding"
+    action: "reset_rate_limit"
+    max_uses: 1
+    transferable: false
+    cash_value: false
+    resale_allowed: false
+    geographic_scope: "global"
+  lifecycle:
+    status: "available"
+    granted_at: "2026-06-12T00:00:00Z"
+    expires_at: "2026-07-12T00:00:00Z"
+  policy:
+    policy_id: "policy:compute-access-v0.1"
+    approval_required: false
+    revocable: true
+    audit_required: true
+    abuse_check_required: true
+    human_review_required: false
+    maximum_balance: 5
+  trace:
+    origin_event: "verified_contribution"
+    contribution_ref: "contribution:open-source-patch-001"
+    policy_ref: "policy:compute-access-v0.1"
+    created_by: "governance:allocation-engine"
+    created_at: "2026-06-12T00:00:00Z"
+    evidence:
+      - "pull-request:ai-coding-workflow-fix-001"
+      - "review:maintainer-approved-001"
+      - "test-result:validation-passed-001"
+  review:
+    status: "not_required"
+    notes: "Low-risk non-transferable access right with expiration and audit trace."
+  return_flow:
+    mode: "contribution_return"
+    source_contribution: "contribution:open-source-patch-001"
+    allocation_basis: "Verified contribution improved reliability of an AI coding workflow."
+    allocation_score: 0.82
