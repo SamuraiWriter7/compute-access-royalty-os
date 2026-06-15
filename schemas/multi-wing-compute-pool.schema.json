@@ -1,0 +1,427 @@
+{
+"$schema": "https://json-schema.org/draft/2020-12/schema",
+"$id": "https://example.org/schemas/multi-wing-compute-pool.schema.json",
+"title": "Multi-Wing Compute Pool",
+"description": "A governed shared compute pool for allocating AI compute access rights across multiple wings, communities, agents, and review bodies.",
+"type": "object",
+"required": [
+"multi_wing_compute_pool"
+],
+"additionalProperties": false,
+"properties": {
+"multi_wing_compute_pool": {
+"type": "object",
+"required": [
+"id",
+"name",
+"steward",
+"pool_type",
+"capacity",
+"eligible_wings",
+"allocation_policy",
+"usage_rules",
+"trace_requirements",
+"review"
+],
+"additionalProperties": false,
+"properties": {
+"id": {
+"type": "string",
+"description": "Unique identifier for the multi-wing compute pool.",
+"pattern": "^mwcp-[A-Za-z0-9.*:-]+$"
+},
+"name": {
+"type": "string",
+"description": "Human-readable name of the compute pool."
+},
+"steward": {
+"type": "string",
+"description": "Governance body, organization, community, or agent responsible for stewarding the pool."
+},
+"pool_type": {
+"type": "string",
+"description": "Type of shared compute pool.",
+"enum": [
+"community_compute_pool",
+"safety_review_pool",
+"documentation_support_pool",
+"open_source_contributor_pool",
+"governance_review_pool",
+"edge_agent_pool",
+"research_compute_pool",
+"multi_agent_execution_pool",
+"other"
+]
+},
+"description": {
+"type": "string",
+"description": "Optional explanation of the pool purpose."
+},
+"capacity": {
+"type": "object",
+"description": "Capacity definition for the shared compute pool.",
+"required": [
+"unit",
+"total_available",
+"refresh_interval"
+],
+"additionalProperties": false,
+"properties": {
+"unit": {
+"type": "string",
+"enum": [
+"access_right",
+"rate_limit_reset",
+"priority_usage_window",
+"model_access_credit",
+"agent_execution_allowance",
+"compute_credit",
+"other"
+]
+},
+"total_available": {
+"type": "integer",
+"minimum": 0
+},
+"reserved_capacity": {
+"type": "integer",
+"minimum": 0,
+"description": "Optional amount reserved for emergency, safety, or governance use."
+},
+"refresh_interval": {
+"type": "string",
+"enum": [
+"daily",
+"weekly",
+"monthly",
+"quarterly",
+"manual",
+"none"
+]
+},
+"rollover_allowed": {
+"type": "boolean",
+"description": "Whether unused capacity can roll over into the next interval."
+},
+"maximum_rollover": {
+"type": "integer",
+"minimum": 0,
+"description": "Maximum capacity that may roll over, if rollover is allowed."
+}
+}
+},
+"eligible_wings": {
+"type": "array",
+"description": "Wings eligible to receive allocations from this compute pool.",
+"minItems": 1,
+"items": {
+"type": "object",
+"required": [
+"wing_id",
+"role",
+"allocation_weight"
+],
+"additionalProperties": false,
+"properties": {
+"wing_id": {
+"type": "string",
+"description": "Identifier of the eligible wing.",
+"pattern": "^wing:[A-Za-z0-9.*:-]+$"
+},
+"name": {
+"type": "string",
+"description": "Optional human-readable wing name."
+},
+"role": {
+"type": "string",
+"enum": [
+"software_contribution",
+"risk_discovery",
+"audit_and_provenance",
+"documentation_and_learning",
+"review_and_policy",
+"moderation_and_support",
+"infrastructure_operation",
+"research_and_evaluation",
+"local_agent_operation",
+"edge_compute_operation",
+"other"
+]
+},
+"allocation_weight": {
+"type": "number",
+"minimum": 0,
+"maximum": 1,
+"description": "Relative allocation weight for this wing."
+},
+"priority": {
+"type": "string",
+"enum": [
+"low",
+"normal",
+"high",
+"critical"
+]
+},
+"eligible_contribution_types": {
+"type": "array",
+"description": "Contribution types recognized for this wing.",
+"items": {
+"type": "string",
+"enum": [
+"code_contribution",
+"documentation_contribution",
+"bug_report",
+"safety_report",
+"benchmark_contribution",
+"dataset_curation",
+"model_evaluation",
+"governance_review",
+"educational_material",
+"community_moderation",
+"origin_knowledge_contribution",
+"infrastructure_contribution",
+"other"
+]
+},
+"uniqueItems": true
+}
+}
+}
+},
+"allocation_policy": {
+"type": "object",
+"description": "Policy controls for distributing compute access from the pool.",
+"required": [
+"mode",
+"contribution_based",
+"wing_quota_enabled",
+"human_review_required_for_high_impact"
+],
+"additionalProperties": false,
+"properties": {
+"mode": {
+"type": "string",
+"enum": [
+"contribution_based",
+"need_based",
+"wing_quota",
+"review_gated",
+"emergency",
+"hybrid"
+]
+},
+"policy_ref": {
+"type": "string",
+"description": "Reference to a contribution-to-access or commons allocation policy."
+},
+"contribution_based": {
+"type": "boolean"
+},
+"need_based": {
+"type": "boolean"
+},
+"wing_quota_enabled": {
+"type": "boolean"
+},
+"review_gated": {
+"type": "boolean"
+},
+"emergency_allocation_allowed": {
+"type": "boolean"
+},
+"human_review_required_for_high_impact": {
+"type": "boolean"
+},
+"minimum_score_for_allocation": {
+"type": "number",
+"minimum": 0,
+"maximum": 1
+}
+}
+},
+"usage_rules": {
+"type": "object",
+"description": "Rules governing usage of access granted from the pool.",
+"required": [
+"transferable",
+"cash_value",
+"resale_allowed",
+"expiration_required",
+"default_expiration_days"
+],
+"additionalProperties": false,
+"properties": {
+"transferable": {
+"type": "boolean"
+},
+"cash_value": {
+"type": "boolean"
+},
+"resale_allowed": {
+"type": "boolean"
+},
+"expiration_required": {
+"type": "boolean"
+},
+"default_expiration_days": {
+"type": "integer",
+"minimum": 1
+},
+"maximum_balance_per_recipient": {
+"type": "integer",
+"minimum": 0
+},
+"activation_required": {
+"type": "boolean"
+},
+"revocation_allowed": {
+"type": "boolean"
+}
+}
+},
+"trace_requirements": {
+"type": "object",
+"description": "Trace and audit requirements for commons allocations and usage.",
+"required": [
+"contribution_trace_required",
+"allocation_trace_required",
+"usage_trace_required",
+"audit_required"
+],
+"additionalProperties": false,
+"properties": {
+"contribution_trace_required": {
+"type": "boolean"
+},
+"allocation_trace_required": {
+"type": "boolean"
+},
+"usage_trace_required": {
+"type": "boolean"
+},
+"policy_reference_required": {
+"type": "boolean"
+},
+"pool_source_required": {
+"type": "boolean"
+},
+"audit_required": {
+"type": "boolean"
+},
+"transparency_report_required": {
+"type": "boolean"
+}
+}
+},
+"abuse_controls": {
+"type": "object",
+"description": "Controls to prevent access farming, pool capture, collusion, hoarding, and speculation.",
+"required": [
+"access_farming_check_required",
+"pool_capture_check_required",
+"collusion_check_required",
+"hoarding_prevention_required",
+"speculation_prevention_required"
+],
+"additionalProperties": false,
+"properties": {
+"access_farming_check_required": {
+"type": "boolean"
+},
+"pool_capture_check_required": {
+"type": "boolean"
+},
+"collusion_check_required": {
+"type": "boolean"
+},
+"hoarding_prevention_required": {
+"type": "boolean"
+},
+"speculation_prevention_required": {
+"type": "boolean"
+},
+"duplicate_contribution_detection_required": {
+"type": "boolean"
+},
+"cooldown_days": {
+"type": "integer",
+"minimum": 0
+},
+"conflict_of_interest_check_required": {
+"type": "boolean"
+}
+}
+},
+"review": {
+"type": "object",
+"description": "Review and oversight configuration for the compute commons.",
+"required": [
+"review_body",
+"appeal_allowed",
+"rebalance_allowed"
+],
+"additionalProperties": false,
+"properties": {
+"review_body": {
+"type": "string"
+},
+"appeal_allowed": {
+"type": "boolean"
+},
+"rebalance_allowed": {
+"type": "boolean"
+},
+"review_interval": {
+"type": "string",
+"enum": [
+"weekly",
+"monthly",
+"quarterly",
+"manual",
+"none"
+]
+},
+"allocation_review_required": {
+"type": "boolean"
+},
+"abuse_review_required": {
+"type": "boolean"
+},
+"transparency_report_interval": {
+"type": "string",
+"enum": [
+"monthly",
+"quarterly",
+"annually",
+"manual",
+"none"
+]
+}
+}
+},
+"output": {
+"type": "object",
+"description": "Output expectations for allocations from this compute pool.",
+"required": [
+"creates_compute_access_right"
+],
+"additionalProperties": false,
+"properties": {
+"creates_compute_access_right": {
+"type": "boolean"
+},
+"schema_ref": {
+"type": "string",
+"description": "Reference to the Compute Access Right schema."
+}
+}
+},
+"notes": {
+"type": "string",
+"description": "Optional notes about this compute pool."
+}
+}
+}
+}
+}
