@@ -24,54 +24,64 @@ eligible_contribution_types:
 - "bug_report"
 - "infrastructure_contribution"
 
-```
-- wing_id: "wing:safety"
-  name: "Safety Wing"
-  role: "risk_discovery"
-  allocation_weight: 0.25
-  priority: "critical"
-  eligible_contribution_types:
-    - "safety_report"
-    - "model_evaluation"
-    - "benchmark_contribution"
+wing_id: "wing:safety"
+name: "Safety Wing"
+role: "risk_discovery"
+allocation_weight: 0.25
+priority: "critical"
+eligible_contribution_types:
 
-- wing_id: "wing:trace"
-  name: "Trace Wing"
-  role: "audit_and_provenance"
-  allocation_weight: 0.15
-  priority: "normal"
-  eligible_contribution_types:
-    - "origin_knowledge_contribution"
-    - "governance_review"
-    - "dataset_curation"
+"safety_report"
 
-- wing_id: "wing:education"
-  name: "Education Wing"
-  role: "documentation_and_learning"
-  allocation_weight: 0.10
-  priority: "normal"
-  eligible_contribution_types:
-    - "documentation_contribution"
-    - "educational_material"
+"model_evaluation"
 
-- wing_id: "wing:governance"
-  name: "Governance Wing"
-  role: "review_and_policy"
-  allocation_weight: 0.10
-  priority: "high"
-  eligible_contribution_types:
-    - "governance_review"
-    - "community_moderation"
+"benchmark_contribution"
 
-- wing_id: "wing:community"
-  name: "Community Wing"
-  role: "moderation_and_support"
-  allocation_weight: 0.10
-  priority: "normal"
-  eligible_contribution_types:
-    - "community_moderation"
-    - "documentation_contribution"
-```
+wing_id: "wing:trace"
+name: "Trace Wing"
+role: "audit_and_provenance"
+allocation_weight: 0.15
+priority: "normal"
+eligible_contribution_types:
+
+"origin_knowledge_contribution"
+
+"governance_review"
+
+"dataset_curation"
+
+wing_id: "wing:education"
+name: "Education Wing"
+role: "documentation_and_learning"
+allocation_weight: 0.10
+priority: "normal"
+eligible_contribution_types:
+
+"documentation_contribution"
+
+"educational_material"
+
+wing_id: "wing:governance"
+name: "Governance Wing"
+role: "review_and_policy"
+allocation_weight: 0.10
+priority: "high"
+eligible_contribution_types:
+
+"governance_review"
+
+"community_moderation"
+
+wing_id: "wing:community"
+name: "Community Wing"
+role: "moderation_and_support"
+allocation_weight: 0.10
+priority: "normal"
+eligible_contribution_types:
+
+"community_moderation"
+
+"documentation_contribution"
 
 allocation_policy:
 mode: "hybrid"
