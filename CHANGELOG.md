@@ -6,6 +6,129 @@ This repository follows a candidate-based release flow for early specification d
 
 ---
 
+## [v0.4.0-candidate] - 2026-06-15
+
+### Added
+
+* Added `docs/royalty-os-integration.md`.
+
+  * Defines the v0.4 integration model connecting Compute Access Royalty OS with broader Royalty OS, Trace OS, Communication Royalty OS, and return-flow architectures.
+  * Introduces the flow:
+
+    * Origin Contribution
+    * Trace Record
+    * Attribution Route
+    * Allocation Policy
+    * Return Flow
+    * Compute Access Right
+  * Defines origin, trace, attribution, allocation, return-flow, and access-right integration layers.
+  * Explains how compute access can become a royalty-style return object.
+* Added `schemas/compute-access-royalty-link.schema.json`.
+
+  * Defines the first JSON Schema for linking origin contributions to compute access returns.
+  * Supports origin, trace, attribution, allocation, return flow, compute access right reference, review, and audit metadata.
+* Added `examples/compute-access-royalty-link.example.yaml`.
+
+  * Provides a valid example of a verified contribution linked to a governed compute access return.
+  * Demonstrates Royalty OS-style integration across trace, attribution, allocation, return flow, and access right reference.
+* Updated `scripts/validate_examples.py`.
+
+  * Added validation target for `Compute Access Royalty Link`.
+  * Now validates:
+
+    * `Compute Access Right`
+    * `Contribution to Access Policy`
+    * `Multi-Wing Compute Pool`
+    * `Compute Access Royalty Link`
+* Updated `README.md`.
+
+  * Added v0.4 overview.
+  * Added Royalty OS Integration section.
+  * Updated repository structure.
+  * Updated schemas, examples, validation output, current status, roadmap, and philosophy.
+
+### Validated
+
+* Confirmed that `examples/compute-access-right.example.yaml` validates successfully against `schemas/compute-access-right.schema.json`.
+* Confirmed that `examples/contribution-to-access-policy.example.yaml` validates successfully against `schemas/contribution-to-access-policy.schema.json`.
+* Confirmed that `examples/multi-wing-compute-pool.example.yaml` validates successfully against `schemas/multi-wing-compute-pool.schema.json`.
+* Confirmed that `examples/compute-access-royalty-link.example.yaml` validates successfully against `schemas/compute-access-royalty-link.schema.json`.
+* Confirmed that GitHub Actions validation passes with all four schema/example pairs.
+* Confirmed that v0.4 is connected to the repository validation loop.
+
+### Design Notes
+
+v0.4 extends the system from access rights, contribution allocation, and shared compute commons into broader Royalty OS integration.
+
+```text
+v0.1
+Compute Access Right
+= the governed access object
+
+v0.2
+Contribution-to-Access Allocation
+= the policy layer that converts contribution into access return
+
+v0.3
+Multi-Wing Compute Commons
+= the shared resource layer for governing pooled compute access across multiple wings
+
+v0.4
+Royalty OS Integration
+= the origin-to-access return bridge connecting trace, attribution, allocation, return flow, and compute access rights
+```
+
+The v0.4 model intentionally keeps compute access royalty links:
+
+* origin-aware
+* traceable
+* attribution-based
+* policy-governed
+* return-flow aligned
+* non-transferable by default
+* non-cash by default
+* expiring
+* reviewable
+* auditable
+* abuse-resistant
+
+### Release Readiness
+
+`v0.4.0-candidate` is ready to tag once the following files are committed:
+
+```text
+README.md
+CHANGELOG.md
+docs/compute-access-governance.md
+docs/contribution-to-access-allocation.md
+docs/multi-wing-compute-commons.md
+docs/royalty-os-integration.md
+schemas/compute-access-right.schema.json
+schemas/contribution-to-access-policy.schema.json
+schemas/multi-wing-compute-pool.schema.json
+schemas/compute-access-royalty-link.schema.json
+examples/compute-access-right.example.yaml
+examples/contribution-to-access-policy.example.yaml
+examples/multi-wing-compute-pool.example.yaml
+examples/compute-access-royalty-link.example.yaml
+scripts/validate_examples.py
+.github/workflows/validate-examples.yml
+```
+
+Recommended tag:
+
+```text
+v0.4.0-candidate
+```
+
+Recommended release title:
+
+```text
+v0.4.0-candidate — Royalty OS Integration
+```
+
+---
+
 ## [v0.3.0-candidate] - 2026-06-15
 
 ### Added
@@ -73,40 +196,7 @@ Multi-Wing Compute Commons
 = the shared resource layer for governing pooled compute access across multiple wings
 ```
 
-The v0.3 model intentionally keeps shared compute access:
-
-* pool-based
-* wing-aware
-* policy-governed
-* contribution-aware
-* traceable
-* non-transferable by default
-* non-cash by default
-* expiring
-* abuse-checked
-* reviewable
-* auditable
-* rebalancing-aware
-
-### Release Readiness
-
-`v0.3.0-candidate` is ready to tag once the following files are committed:
-
-```text
-README.md
-CHANGELOG.md
-docs/compute-access-governance.md
-docs/contribution-to-access-allocation.md
-docs/multi-wing-compute-commons.md
-schemas/compute-access-right.schema.json
-schemas/contribution-to-access-policy.schema.json
-schemas/multi-wing-compute-pool.schema.json
-examples/compute-access-right.example.yaml
-examples/contribution-to-access-policy.example.yaml
-examples/multi-wing-compute-pool.example.yaml
-scripts/validate_examples.py
-.github/workflows/validate-examples.yml
-```
+### Release
 
 Recommended tag:
 
@@ -179,17 +269,6 @@ v0.2
 Contribution-to-Access Allocation
 = the policy layer that converts contribution into access return
 ```
-
-The v0.2 model intentionally keeps compute access returns:
-
-* policy-based
-* traceable
-* non-transferable by default
-* non-cash by default
-* expiring
-* abuse-checked
-* reviewable
-* auditable
 
 ### Release
 
@@ -295,24 +374,6 @@ v0.1.0-candidate — Compute Access Right Governance Foundation
 
 ## Planned
 
-### v0.4 — Royalty OS Integration
-
-Planned direction:
-
-* integration with Royalty OS
-* contribution trace linkage
-* origin attribution
-* allocation interoperability
-* return-flow bridge design
-
-Potential files:
-
-```text
-docs/royalty-os-integration.md
-schemas/compute-access-royalty-link.schema.json
-examples/compute-access-royalty-link.example.yaml
-```
-
 ### v0.5 — Sovereign / Space Compute Access Protocol
 
 Planned direction:
@@ -322,6 +383,7 @@ Planned direction:
 * jurisdictional stewardship
 * AI compute access rights across infrastructure domains
 * human review and commons protection
+* compute access return across sovereign or orbital infrastructure
 
 Potential files:
 
