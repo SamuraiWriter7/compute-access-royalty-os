@@ -1,0 +1,68 @@
+compute_access_royalty_link:
+id: "carl-2026-001"
+
+origin:
+origin_id: "contribution:open-source-patch-001"
+origin_type: "code_contribution"
+contributor: "user:developer-alpha"
+reference: "pull-request:ai-coding-workflow-fix-001"
+created_at: "2026-06-15T00:00:00Z"
+
+trace:
+trace_id: "trace:contribution-verification-001"
+verification_status: "verified"
+verifier: "reviewer:maintainer-001"
+verified_at: "2026-06-15T01:00:00Z"
+evidence:
+- "review:maintainer-approved-001"
+- "test-result:validation-passed-001"
+- "commit:workflow-reliability-fix-001"
+policy_ref: "policy:trace-verification-v0.1"
+
+attribution:
+attribution_mode: "direct"
+contribution_weight: 0.82
+attribution_basis: "Verified contribution improved reliability of an AI coding workflow and reduced validation failure risk."
+related_origins:
+- "docs:compute-access-governance"
+- "schema:compute-access-right"
+attribution_review_required: false
+
+allocation:
+policy_id: "policy:contribution-to-access-v0.2"
+allocation_level: "standard"
+return_type: "compute_access_return"
+allocation_score: 0.82
+allocation_reason: "The contribution met standard allocation criteria for quality, impact, verification status, reuse value, and risk reduction."
+pool_ref: "mwcp-2026-001"
+
+return_flow:
+mode: "compute_access_royalty"
+output_access_right: "car-2026-001"
+expiration_days: 30
+transferable: false
+cash_value: false
+resale_allowed: false
+revocable: true
+
+compute_access_right:
+right_id: "car-2026-001"
+right_type: "rate_limit_reset"
+schema_ref: "schemas/compute-access-right.schema.json"
+service: "example-ai-coding-agent"
+status: "available"
+
+review:
+status: "approved"
+reviewer: "governance:compute-access-review-board"
+reviewed_at: "2026-06-15T02:00:00Z"
+human_review_required: false
+appeal_allowed: true
+notes: "Approved as a standard compute access royalty link for a verified code contribution."
+
+audit:
+audit_required: true
+audit_status: "passed"
+audit_ref: "audit:compute-access-royalty-link-001"
+
+notes: "This v0.4 example links a verified contribution to a governed compute access return through Royalty OS-style trace, attribution, allocation, and return flow."
